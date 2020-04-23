@@ -27,7 +27,7 @@ clio_overview_cat <- function(subargument = "all") {
   }
 
 
-  else if (!is.na(amatch(subargument, variables, maxDist = 10))) {
+  else if (!is.na(stringdist::amatch(subargument, variables, maxDist = 10))) {
     match <- stringdist::amatch(subargument, variables, maxDist = 10)
 
 
