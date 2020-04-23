@@ -12,8 +12,11 @@
 #' @param to End year
 #' @param list Defaults to FALSE. If TRUE, returns a list of each variable
 #' @param mergetype Defaults to full_join. Can be set to inner_join, outer_join, left_join, etc.
-#' @import dplyr
 #' @importFrom magrittr "%>%"
+#' @importFrom dplyr "left_join"
+#' @importFrom dplyr "right_join"
+#' @importFrom dplyr "full_join"
+#' @importFrom dplyr "inner_join"
 #' @seealso [Clio::clio_get_cat()] if you want to extract data by categories instead of by variables.
 #' @export
 #' @examples
