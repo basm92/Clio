@@ -1,0 +1,22 @@
+Package: Clio
+Title: A Bridge Between Clio-Infra API and the R User
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Bas",
+           family = "Machielsen",
+           role = c("aut", "cre"),
+           email = "a.h.machielsen@uu.nl")
+Description: The package serves as a bridge between the API at www.clio-infra.eu and the R user. It facilitates quick and efficient data extraction by a few functions only. Clio-infra.eu is a repository of all kinds of data related to economic history, compiled through the joint effort of various researchers worldwide. The data is publicly available in various Excel sets. This package makes use of the structure of Clio-infra to allow the user to extract the information from a subset of those files according to the wishes of the user, using only simple functions and arguments. 
+License: use_mit_license()
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports: 
+    dplyr,
+    purrr,
+    stringdist,
+    readxl,
+    stringr,
+    rvest,
+    tidyr
