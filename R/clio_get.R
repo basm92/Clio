@@ -35,7 +35,7 @@ clio_get <- function(variables,
     stop("No valid variables selected")
   }
 
-  matches <- amatch(variables, clio_overview()[,1],
+  matches <- stringdist::amatch(variables, clio_overview()[,1],
                     maxDist = 5)
 
   if(is.element(NA, matches)) {
@@ -53,14 +53,14 @@ clio_get <- function(variables,
   for(i in 1:length(query)) {
     download.file(
           url = paste("https://clio-infra.eu/data/",
-                      str_replace_all(query[i], " ", ""),
+                      stringr::str_replace_all(query[i], " ", ""),
                       "_Compact.xlsx",
                       sep = ""),
               destfile = "tmp",
               mode="wb",
           quiet = TRUE)
 
-    step1 <- read_xlsx("tmp", sheet = 2)
+    step1 <- readxl::read_xlsx("tmp", sheet = 2)
     colnames(step1)[4] <- query[i]
 
     data[[i]] <- step1
@@ -88,7 +88,7 @@ clio_get <- function(variables,
   }
 
 else data %>%
-    reduce(mergetype)
+    purrr::reduce(mergetype)
 }
 
 

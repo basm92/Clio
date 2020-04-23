@@ -28,7 +28,7 @@ clio_get_cat <- function(category, ...) {
     stop('No category selected')
   }
 
-  matches <- amatch(category, clio_overview_cat(),
+  matches <- stringdist::amatch(category, clio_overview_cat(),
                     maxDist = 5)
 
   if(is.element(NA,matches)) {
@@ -36,7 +36,7 @@ clio_get_cat <- function(category, ...) {
   }
 
   lapply(clio_overview_cat()[matches], clio_overview_cat) %>%
-    reduce(rbind) %>%
+    purrr::reduce(rbind) %>%
     .[,1] -> query
 
   clio_get(query, ...)

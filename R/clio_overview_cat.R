@@ -14,12 +14,12 @@
 #' clio_overview_cat("institutions")
 
 clio_overview_cat <- function(subargument = "all") {
-  url <- read_html("https://clio-infra.eu/index.html")
+  url <- rvest::read_html("https://clio-infra.eu/index.html")
 
   variables <- url %>%
-    html_nodes("div.row:nth-child(6) a.list-group-item.active") %>%
-    html_text() %>%
-    str_trim()
+    rvest::html_nodes("div.row:nth-child(6) a.list-group-item.active") %>%
+    rvest::html_text() %>%
+    stringr::str_trim()
 
   if(subargument == "all") {
     variables
@@ -27,14 +27,14 @@ clio_overview_cat <- function(subargument = "all") {
 
 
   else if (!is.na(amatch(subargument, variables, maxDist = 10))) {
-    match <- amatch(subargument, variables, maxDist = 10)
+    match <- stringdist::amatch(subargument, variables, maxDist = 10)
 
 
     #Very important: preceding is the first a header, following the second
     #Thus, you first enter match+1, and only then match.
 
     subs <- url %>%
-      html_nodes(xpath = paste("
+      rvest::html_nodes(xpath = paste("
     /html/body/div/div[6]//
       p[
         following::a[normalize-space(text()) =",
@@ -49,7 +49,7 @@ clio_overview_cat <- function(subargument = "all") {
         ]
       ]",
                                sep = "")) %>%
-      html_text()
+      rvest::html_text()
 
     #Clean the dataset in the same way as in the function clio_overview, make a neat matrix
     subs <- subs %>%
@@ -59,14 +59,14 @@ clio_overview_cat <- function(subargument = "all") {
     #If production, scrape every p after production
     if(variables[match] == "Production"){
       subs <- url %>%
-        html_nodes(xpath = "
+        rvest::html_nodes(xpath = "
                    /html/body/div/div[6]//
                    p[
                    preceding::a[normalize-space(text()) ='Production'
                    ]]
                    "
                      ) %>%
-        html_text()
+        rvest::html_text()
 
       subs <- subs %>%
         data_clean()

@@ -10,18 +10,18 @@
 #' clio_overview()
 
 clio_overview <- function() {
-  variables <- read_html("https://clio-infra.eu/index.html") %>%
-    html_nodes("div.row:nth-child(6) p") %>%
-    html_text() %>%
+  variables <- rvest::read_html("https://clio-infra.eu/index.html") %>%
+    rvest::html_nodes("div.row:nth-child(6) p") %>%
+    rvest::html_text() %>%
     data.frame(variable_name = .) %>%
-    mutate(from =  str_extract(variable_name, "[0-9]{4}"),
-           to = str_extract(variable_name, "\\d{4}$"),
-           obs = str_replace_all(
-             str_extract(
+    dplyr::mutate(from =  stringr::str_extract(variable_name, "[0-9]{4}"),
+           to = stringr::str_extract(variable_name, "\\d{4}$"),
+           obs = stringr::str_replace_all(
+             stringr::str_extract(
                variable_name,
                "\\[[0-9]+\\]"),
              c("\\[" = "", "\\]" = "")),
-           variable_name = str_trim(str_extract(variable_name, "[^1]+"))
+           variable_name = stringr::str_trim(stringr::str_extract(variable_name, "[^1]+"))
     )
 
   variables
