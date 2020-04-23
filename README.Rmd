@@ -81,7 +81,7 @@ clio_get(c("Zinc production", "Gold production"),
                        mergetype = inner_join))
 
 clio_get(c("Armed conflicts internal", "Gold production", "Armed conflicts international"), 
-         mergetype = left_join)
+         mergetype = inner_join)
 ```
 
 The kind of merge is customizable :
