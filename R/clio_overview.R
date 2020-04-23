@@ -5,12 +5,13 @@
 #'
 #' @return A data.frame with the variable names, from, to and number of observations (obs)
 #' @seealso [Clio::clio_overview_cat()]
+#' @importFrom magrittr "%>%"
 #' @export
 #' @examples
 #' clio_overview()
 
 clio_overview <- function() {
-  variables <- rvest::read_html("https://clio-infra.eu/index.html") %>%
+  variables <- xml2::read_html("https://clio-infra.eu/index.html") %>%
     rvest::html_nodes("div.row:nth-child(6) p") %>%
     rvest::html_text() %>%
     data.frame(variable_name = .) %>%

@@ -4,6 +4,7 @@
 #' to quickly and efficiently clean the data for user convenience.
 #'
 #' @return A data.frame, but for internal use only.
+#' @importFrom magrittr "%>%"
 #' @export
 #'
 #'

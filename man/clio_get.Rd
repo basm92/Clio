@@ -30,9 +30,11 @@ countries and years specified by the user.
 }
 \examples{
 clio_get(c("infant mortality", "zinc production"))
+
 clio_get(c("biodiversity - naturalness", "xecutive Constraints  (XCONST)"),
 from = 1850, to = 1900,
 countries = c("Armenia", "Azerbaijan"))
+
 clio_get(c("Zinc production", "Gold production"),
 from = 1800, to = 1920,
 countries = c("Botswana", "Zimbabwe",

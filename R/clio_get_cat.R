@@ -7,6 +7,7 @@
 #' @param ... All other arguments are passed on to [Clio::clio_get()]
 #' @return A data.frame (or list) consisting of all the variables within a certain category
 #' @seealso [Clio::clio_get()] Arguments other than category are passed to this function.
+#' @importFrom magrittr "%>%"
 #' @export
 #' @examples
 #'

@@ -7,6 +7,7 @@
 #' @return With no argument, it returns a vector containing the names of all available categories
 #' on clio-infra. With a category as one of its arguments, it returns the names, from, to and obs of
 #' all variables within that category.
+#' @importFrom magrittr "%>%"
 #' @export
 #' @examples
 #' clio_overview_cat("finanz")
@@ -14,7 +15,7 @@
 #' clio_overview_cat("institutions")
 
 clio_overview_cat <- function(subargument = "all") {
-  url <- rvest::read_html("https://clio-infra.eu/index.html")
+  url <- xml2::read_html("https://clio-infra.eu/index.html")
 
   variables <- url %>%
     rvest::html_nodes("div.row:nth-child(6) a.list-group-item.active") %>%
