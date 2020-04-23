@@ -1,0 +1,110 @@
+---
+title: "Clio"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Clio is an R package that serves as a bridge between the user and the website [Clio Infra](www.clio-infra.eu), a repository containing publicly available data on various aspects of economic history at the country level. This package is designed to quickly and efficiently extract data, allowing the user to make large queries. This way, the user is not confined to manually downloading Excel files, and the associated filtering and merging process. The package also facilitates transparent and reproducible data collection, and it is 'typo robust' to a certain extent, to prevent annoyance. 
+
+
+## Functions
+
+The package is designed to be very easy to use and contains only four (key) functions:
+
+- clio_overview()
+
+This function provides an overview of all available variables on clio-infra. It has no arguments, and returns a dataframe with all variables, their title, and availability (from and to). The function's goal is to aid the user in browsing the variables, without having to go back and forth to the website. 
+
+- clio_overview_cat()
+
+This function allows the user to browse through various categories of data available. It is meant to be used in the following way: first, call it without argument. That gives you a vector of currently available categories of data. Secondly, call it again with a character vector of one of the categories as an argument:
+
+```{r eval = FALSE}
+clio_overview_cat("production")
+```
+
+This will give the user an overview of variables *within* a certain category. Note that the function does not support looking at two categories at the same time. The `_get` equivalent of this function, the function that actually provides the data to the user, does, however. 
+
+- clio_get()
+
+`clio_get` returns a data frame on the basis of a couple of arguments: 
+  - variables: You can select variables with the help of clio_overview() or clio_overview_cat(). You can enter multiple variables using `c(var1,var2)`. 
+  - countries: You can enter one, or multiple countries, also using `c(country1, country2)`. Defaults to all countries available in the query. 
+  - from, to: condition the dataset on a certain time period. If ineffective, no warning will be given. 
+  - list = FALSE: create a list instead of a merged data.frame. 
+  - mergetype = inner_join. Select a merge type, `inner_join, outer_join, left_join, right_join`. Ignored in case of `list = TRUE`. 
+
+- clio_get_cat()
+
+`clio_get_cat` accepts *categories* as inputs, as well as combinations of categories using `c(cat1, cat2)`. All other arguments are passed on to `clio_get`. 
+
+
+## Demonstration
+
+```{r}
+head(clio_overview(),10)
+```
+
+All categories of data are shown below:
+
+```{r}
+clio_overview_cat()
+```
+
+Browse through the database by feeding arguments to `clio_overview_cat()`. It is typo-robust.
+
+```{r}
+clio_overview_cat("Finanze")
+
+clio_overview_cat("prices end weeges")
+```
+
+```{r}
+clio_get(c("income inequality", "labouresrs real wage"))
+
+clio_get(c("infant mortality", "zinc production"))
+
+clio_get(c("biodiversity - naturalness", "xecutive Constraints  (XCONST)"), 
+         from = 1850, to = 1900, 
+         countries = c("Armenia", "Azerbaijan"))
+
+clio_get(c("Zinc production", "Gold production"), 
+         from = 1800, to = 1920, 
+         countries = c("Botswana", "Zimbabwe", 
+                       mergetype = inner_join))
+
+clio_get(c("Armed conflicts internal", "Gold production", "Armed conflicts international"), 
+         mergetype = inner_join)
+```
+
+The kind of merge is customizable :
+  argument name: mergetype
+  values: 
+  - full_join (default)
+  - left_join
+  - inner_join
+  - outer_join
+  
+```{r}
+clio_get_cat("finanz", list = F, from = 1800, to = 1900)
+
+clio_overview_cat()
+
+clio_get_cat(c("agriculture", "environment"),
+             countries = "Netherlands",
+             mergetype = inner_join, from = 1850, to = 1900)
+
+clio_get_cat("Produzioni", from = 1700, list = F, mergetype = inner_join)
+
+clio_get(c("Tin Production", "income inequality"), from = 1800, countries = c("Netherlands", "Russia"))
+
+clio_get_cat("labor relation")
+```
+
+Thank you for reading! Questions and remarks: Github or [e-mail](mailto:a.h.machielsen@uu.nl). Improvements: PR! Issues: Feel free to start or point them out. 
+
