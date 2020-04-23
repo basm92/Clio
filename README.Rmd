@@ -5,7 +5,8 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-devtools::install_github("basm92/Clio")
+#devtools::install_github("basm92/Clio")
+library(dplyr)
 library(Clio)
 ```
 
@@ -84,13 +85,7 @@ clio_get(c("Armed conflicts internal", "Gold production", "Armed conflicts inter
          mergetype = inner_join)
 ```
 
-The kind of merge is customizable :
-  argument name: mergetype
-  values: 
-  - full_join (default)
-  - left_join
-  - inner_join
-  - outer_join
+The kind of merge is customizable . The argument name is $mergetype$. And it takes the values full_join (default), left_join, inner_join, outer_join, etc. if you have loaded `dplyr`. 
   
 ```{r}
 clio_get_cat("finanz", list = F, from = 1800, to = 1900)
@@ -108,5 +103,5 @@ clio_get(c("Tin Production", "income inequality"), from = 1800, countries = c("N
 clio_get_cat("labor relation")
 ```
 
-Thank you for reading! Questions and remarks: Github or [e-mail](mailto:a.h.machielsen@uu.nl). Improvements: PR! Issues: Feel free to start or point them out. 
+Thank you for reading! Questions and remarks: Github or [e-mail](mailto:a.h.machielsen@uu.nl). If you have any improvements, feel free to submit a PR. In case of issues: Feel free to [start a thread](https://github.com/basm92/Clio/issues) or point them out otherwise.  
 
