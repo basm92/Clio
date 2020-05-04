@@ -51,7 +51,13 @@ clio_get <- function(variables,
 
   #Make it robust to a few badly-named datasets:
   query <- gsub("Armed Conflicts \\(Internal\\)",
-                "Armed conflicts \\(Internal\\)", query)
+                "Armed conflicts \\(Internal\\)",
+                query)
+
+  query <- gsub("Female Life Expectancy",
+                "Female life Expectancy",
+                query)
+
   #Initialize the loop
   data <- list()
 
