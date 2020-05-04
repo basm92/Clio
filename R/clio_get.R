@@ -54,8 +54,8 @@ clio_get <- function(variables,
                 "Armed conflicts \\(Internal\\)",
                 query)
 
-  query <- gsub("Female Life Expectancy",
-                "Female life expectancy",
+  query <- gsub("Female life Expectancy at Birth",
+                "Female life expectancy at Birth",
                 query)
 
   #Initialize the loop
