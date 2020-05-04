@@ -55,7 +55,7 @@ clio_get <- function(variables,
                 query)
 
   query <- gsub("Female Life Expectancy",
-                "Female life Expectancy",
+                "Female life expectancy",
                 query)
 
   #Initialize the loop
