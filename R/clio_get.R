@@ -72,7 +72,7 @@ clio_get <- function(variables,
               mode="wb",
           quiet = TRUE)
 
-    step1 <- readxl::read_xlsx("tmp", sheet = 2)
+    step1 <- readxl::read_xlsx(temp, sheet = 2)
     colnames(step1)[4] <- query[i]
 
     data[[i]] <- step1
