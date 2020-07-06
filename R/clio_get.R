@@ -62,12 +62,13 @@ clio_get <- function(variables,
   data <- list()
 
   for(i in 1:length(query)) {
+    temp <- tempfile()
     download.file(
           url = paste("https://clio-infra.eu/data/",
                       stringr::str_replace_all(query[i], " ", ""),
                       "_Compact.xlsx",
                       sep = ""),
-              destfile = "tmp",
+              destfile = temp,
               mode="wb",
           quiet = TRUE)
 
@@ -75,6 +76,8 @@ clio_get <- function(variables,
     colnames(step1)[4] <- query[i]
 
     data[[i]] <- step1
+
+    unlink(temp)
   }
 
 # Here is the filter with three if statements (from, to and country)
